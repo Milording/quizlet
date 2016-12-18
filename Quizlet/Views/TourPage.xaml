@@ -1,0 +1,183 @@
+﻿<Page
+    x:Class="Quizlet.Views.TourPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Quizlet.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mvvm="using:Prism.Windows.Mvvm"
+    mvvm:ViewModelLocator.AutoWireViewModel="true"
+    mc:Ignorable="d">
+
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <ContinuumNavigationTransitionInfo />
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
+    <Page.Resources>
+        <Style TargetType="PivotHeaderItem">
+            <Setter Property="FontSize" Value="{ThemeResource PivotHeaderItemFontSize}" />
+            <Setter Property="FontFamily" Value="{ThemeResource PivotHeaderItemFontFamily}" />
+            <Setter Property="FontWeight" Value="{ThemeResource PivotHeaderItemThemeFontWeight}" />
+            <Setter Property="CharacterSpacing" Value="{ThemeResource PivotHeaderItemCharacterSpacing}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#4CFFFFFF" />
+            <Setter Property="Padding" Value="{ThemeResource PivotHeaderItemMargin}" />
+            <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PivotHeaderItem">
+                        <Grid x:Name="Grid" Margin="8,0,0,0">
+                            <Grid.Resources>
+                                <Style x:Key="BaseContentPresenterStyle" TargetType="ContentPresenter">
+                                    <Setter Property="FontFamily" Value="Segoe UI" />
+                                    <Setter Property="FontWeight" Value="SemiBold" />
+                                    <Setter Property="FontSize" Value="15" />
+                                    <Setter Property="TextWrapping" Value="Wrap" />
+                                    <Setter Property="LineStackingStrategy" Value="MaxHeight" />
+                                    <Setter Property="TextLineBounds" Value="Full" />
+                                    <Setter Property="OpticalMarginAlignment" Value="TrimSideBearings" />
+                                </Style>
+                                <Style x:Key="BodyContentPresenterStyle" TargetType="ContentPresenter"
+                                       BasedOn="{StaticResource BaseContentPresenterStyle}">
+                                    <Setter Property="FontFamily" Value="{ThemeResource PivotHeaderItemFontFamily}" />
+                                    <Setter Property="FontWeight"
+                                            Value="{ThemeResource PivotHeaderItemThemeFontWeight}" />
+                                    <Setter Property="FontSize" Value="{ThemeResource PivotHeaderItemFontSize}" />
+                                </Style>
+                            </Grid.Resources>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="SelectionStates">
+                                    <VisualState x:Name="Unselected" />
+                                    <VisualState x:Name="Selected">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+                                                                           Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="White" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid"
+                                                                           Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="UnselectedPointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid"
+                                                                           Storyboard.TargetProperty="Opacity">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="0.7" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="UnselectedPressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+                                                                           Storyboard.TargetProperty="Opacity">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="0.8" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter
+                                x:Name="ContentPresenter"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                FontSize="{TemplateBinding FontSize}"
+                                FontFamily="{TemplateBinding FontFamily}"
+                                FontWeight="{TemplateBinding FontWeight}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                <ContentPresenter.RenderTransform>
+                                    <TranslateTransform x:Name="ContentPresenterTranslateTransform" />
+                                </ContentPresenter.RenderTransform>
+                            </ContentPresenter>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="{StaticResource QuizletAccentColor}">
+
+        <!--Because tour is needed be finite, we want to use FlipView-->
+            <Pivot Style="{StaticResource QuizletPivotTourStyle}" VerticalAlignment="Stretch"
+               VerticalContentAlignment="Stretch">
+            <Pivot.HeaderTemplate>
+                <DataTemplate>
+                    <TextBlock x:Name="LolkaHeader" HorizontalAlignment="Center" Text="{Binding}" />
+                </DataTemplate>
+            </Pivot.HeaderTemplate>
+            <PivotItem Header="●">
+                <StackPanel VerticalAlignment="Center" >
+                    <TextBlock Text="Quizlet" HorizontalAlignment="Center" MaxHeight="81"
+                                   Style="{StaticResource QuizletLogoTextStyle}" />
+                    <TextBlock Text="Simple tools that let you study anything, for free"
+                                   TextWrapping="Wrap" TextAlignment="Center" Margin="0,24,0,0"
+                                   Style="{StaticResource QuizletTourTextDescriptionStyle}" />
+                </StackPanel>
+            </PivotItem>
+            <PivotItem Header="●">
+                <StackPanel VerticalAlignment="Center">
+                    <Viewbox MaxHeight="81" RenderTransformOrigin="0.5,0.5">
+                        <Viewbox.RenderTransform>
+                            <CompositeTransform ScaleX="-1" />
+                        </Viewbox.RenderTransform>
+                        <SymbolIcon Symbol="Find" MaxHeight="81" Foreground="White" />
+                    </Viewbox>
+                    <TextBlock Text="Search" HorizontalAlignment="Center"
+                               Style="{StaticResource QuizletTourTextHeaderStyle}"
+                               Margin="0,10,0,0" />
+                    <TextBlock
+                        Text="Search millions of study sets created by Quizlet users"
+                        TextWrapping="Wrap" TextAlignment="Center" Margin="0,20,0,0"
+                        Style="{StaticResource QuizletTourTextDescriptionStyle}" />
+                </StackPanel>
+            </PivotItem>
+            <PivotItem Header="●" >
+                <StackPanel VerticalAlignment="Center">
+                    <Viewbox MaxHeight="81" RenderTransformOrigin="0.5,0.5">
+                        <Viewbox.RenderTransform>
+                            <CompositeTransform ScaleX="-1" />
+                        </Viewbox.RenderTransform>
+                        <SymbolIcon Symbol="NewFolder" MaxHeight="81" Foreground="White" />
+                    </Viewbox>
+                    <TextBlock Text="Create" HorizontalAlignment="Center"
+                               Style="{StaticResource QuizletTourTextHeaderStyle}"
+                               Margin="0,10,0,0" />
+                    <TextBlock
+                        Text="Make your own study sets on Quizlet for any subject"
+                        TextWrapping="Wrap" TextAlignment="Center" Margin="0,20,0,0"
+                        Style="{StaticResource QuizletTourTextDescriptionStyle}" />
+                </StackPanel>
+            </PivotItem>
+            <PivotItem Header="●">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="Quizlet" HorizontalAlignment="Center" MaxHeight="81"
+                               Style="{StaticResource QuizletLogoTextStyle}" />
+                    <Button Content="Sign up for free" HorizontalAlignment="Center" Margin="0,20,0,0"
+                            Style="{StaticResource QuizletImportantRoundButton}" />
+                </StackPanel>
+            </PivotItem>
+        </Pivot>
+        <Grid VerticalAlignment="Bottom" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+            <Button Command="{Binding LoginCommand}" Content="Login" HorizontalAlignment="Stretch" 
+                    Grid.Column="1"   Style="{StaticResource QuizletRoundButton}"/>
+            <Button IsEnabled="False" Content="SignUp" Style="{StaticResource QuizletRoundButton}"
+                    Grid.Column="3" HorizontalAlignment="Stretch" />
+        </Grid>
+    </Grid>
+</Page>
+

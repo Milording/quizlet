@@ -1,0 +1,28 @@
+﻿<windows:PrismUnityApplication
+    x:Class="Quizlet.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Quizlet"
+    xmlns:sampleData="using:Quizlet.SampleData"
+    xmlns:converters="using:Quizlet.Converters"
+    xmlns:windows="using:Prism.Unity.Windows"
+    RequestedTheme="Light">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <sampleData:SetListSampleData x:Key="SetListSampleData"/>
+
+            <converters:EmptyImageToBlankConverter x:Key="EmptyImageToBlank"/>
+            <converters:BoolToVisibleConverter x:Key="BoolToVisibleConverter"/>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/Pivot.xaml" />
+                <ResourceDictionary Source="Styles/TextBlock.xaml" />
+                <ResourceDictionary Source="Styles/Button.xaml" />
+                <ResourceDictionary Source="Styles/Colors.xaml"/>
+                <ResourceDictionary Source="Styles/Grid.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+
+</windows:PrismUnityApplication>

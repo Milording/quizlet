@@ -1,0 +1,12 @@
+﻿<xaml:ResourceDictionary xmlns:xaml="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="QuizletTermCardStyle" TargetType="Grid">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="CornerRadius" Value="5"/>
+        <Setter Property="Background" Value="White"/>
+    </Style>
+
+
+</xaml:ResourceDictionary>
